@@ -1,0 +1,56 @@
+#lblExercico1 {
+text-align: center;
+}
+
+#btnSend {
+    text-align: center;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin:auto;
+    background-color: brown;
+    color: white;
+    width: 175px;
+    height: 35px;
+    border: 0;
+}
+
+#genderMale, #genderFemale, #genderOther{
+    align-items: center;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    margin: auto;
+}
+
+#txtMale, #txtFemale, #txtOther{
+    text-align: justify;
+    display: flex;
+}
+article{
+    background-color: aqua;
+    width: 1080px;
+    height: 750px;
+    justify-content: center;
+    margin: auto;
+}
+
+#imgPrincipal {
+  display: block;
+  margin: auto;
+  width: 50%;
+
+}
+
+.radio-button-group {
+  display: flex;
+  align-items: center; 
+  flex-direction: row; 
+  
+}
+label{
+    margin-left: 15px;
+}
+
+
+
