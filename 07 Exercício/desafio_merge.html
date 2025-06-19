@@ -45,6 +45,16 @@
       id: 2
     }]
 
+    //Nomes únicos
+    const allSortedNames = new Set([...data1, ...data2, ...data3].map(obj => obj.name));
+
+
+    const sortedNames = Array.from(allSortedNames).toSorted((a, b) => a.localeCompare(b));
+
+
+    document.getElementById("result").innerHTML = sortedNames;
+
+    console.log(sortedNames);
     /*******************************************************************************
      *
      *       Desafio: Apresentar no elemento <p> os nomes ordenados e sem repetição
