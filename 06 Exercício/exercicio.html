@@ -15,60 +15,73 @@
         integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO"
         crossorigin="anonymous"></script>
     <form>
-        <div class="form-group">
-            <label for="inputNumber">Number</label>
+        <div class="input-group mb-3" style="max-width: 300px;">
             <input type="number" class="form-control" id="inputNumber" placeholder="Number">
+            <div class="input-group-append">
+                <button type="button" class="btn btn-primary" onclick="getResolveFizzBuzz()">Resolve</button>
+            </div>
         </div>
 
-        <div class="form-group form-check">
-            <button type="button" class="btn btn-primary" onclick="getResolveFizzBuzz">Resolve</button>
-        </div>
-
-        <label id="lbResult"></label>
+        <table class="table table-striped mt-3">
+            <thead>
+                <tr>
+                    <th>Número</th>
+                    <th>Resultado</th>
+                </tr>
+            </thead>
+            <tbody id="fizzbuzzTableBody">
+            </tbody>
+        </table>
     </form>
 
     <script>
-        // criar elemento input: number
-        //  btn resolve 
-        // class FizzBuzz 
-        //  contructor um param loops 
-        //  meth resolve fizzbuzz (console -> novo elemento html) 
-
         class FizzBuzz {
             constructor(loopCount) {
                 this.loopCount = loopCount
             }
 
             re() {
+                const tableBody = document.getElementById("fizzbuzzTableBody");
+                tableBody.innerHTML = "";
+
                 let index = 0;
                 while (index <= this.loopCount) {
-                    // let currString = 'Numero -' + index + " : ";
-                    let currString = `Numero - ${index} : `;
+                    let result = "";
                     let isToPrint = false;
 
                     if (index % 3 === 0) {
-                        currString += "Fizz";
+                        result += "Fizz";
                         isToPrint = true;
                     }
                     if (index % 5 === 0) {
-                        currString += "Buzz";
+                        result += "Buzz";
                         isToPrint = true;
                     }
+
                     if (isToPrint) {
-                        console.log(currString);
+                        const row = document.createElement("tr");
+                        const cellNumber = document.createElement("td");
+                        const cellResult = document.createElement("td");
+
+                        cellNumber.textContent = index;
+                        cellResult.textContent = result;
+
+                        row.appendChild(cellNumber);
+                        row.appendChild(cellResult);
+                        tableBody.appendChild(row);
                     }
+
                     index++;
                 }
             }
+
         }
-
-
 
         let loopCount = 0;
 
 
         function getValueFromFrom() {
-          loopCount = document.getElementById("inputNumber").value;
+            loopCount = parseInt(document.getElementById("inputNumber").value);
         }
 
         function getResolveFizzBuzz() {
@@ -76,12 +89,6 @@
             let myFizz = new FizzBuzz(loopCount);
             myFizz.re();
         }
-
-        // get loop count from input
-
-        // create object from Fizzbuzzz class 
-
-        // resolve fizzbuzz onclick 
     </script>
 </body>
 
