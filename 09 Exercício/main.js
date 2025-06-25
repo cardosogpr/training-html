@@ -46,45 +46,89 @@ document.addEventListener('DOMContentLoaded', function () {
 
 });
 
+
 // Artigos e Pedidos
 
-document.addEventListener('DOMContentLoaded', function () {
 
-    function carregarProdutos() {
-        const selectedType = document.getElementById('selectType').value;
-        const productSelect = document.getElementById('selectProduct');
 
-        // Limpar opções anteriores
-        productSelect.innerHTML = '';
+function carregarProdutos() {
+    const selectedType = document.getElementById('selectType').value;
+    const productSelect = document.getElementById('selectProduct');
 
-        let products = [];
+    // Limpar opções anteriores
+    productSelect.innerHTML = '';
 
-       
-        if (selectedType === 'optionSandwich') {
-            products = productNameSanduichesList;
-        } else if (selectedType === 'optionComplement') {
-            products = productNameAcompanhamentosList;
-        } else if (selectedType === 'optionDrink') {
-            products = productNameBebidasList;
-        }
+    let products = [];
 
-        // Mostrar opções
-        products.forEach(product => {
-            productSelect.innerHTML += `<option value="${product}">${product}</option>`;
-        });
+
+    if (selectedType === 'optionSandwich') {
+        products = productNameSanduichesList;
+    } else if (selectedType === 'optionComplement') {
+        products = productNameAcompanhamentosList;
+    } else if (selectedType === 'optionDrink') {
+        products = productNameBebidasList;
     }
 
-    // Event listener para mudanças
-    document.getElementById('selectType').addEventListener('change', carregarProdutos);
+    // Mostrar opções
+    products.forEach(product => {
+        productSelect.innerHTML += `<option value="${product}">${product}</option>`;
+    });
 
-    // Carregarra a função
+
+}
+
+function carregarExtras() {
+    const selectedType = document.getElementById('selectType').value;
+    const selectedProduct = document.getElementById('selectProduct').value;
+    const productSelectExtra = document.getElementById('selectExtra');
+
+    const produtosBatatas = ['Batata', 'Batata (grande)'];
+
+    productSelectExtra.innerHTML = '';
+
+    let extraProducts = [];
+
+    if (selectedType === 'optionSandwich') {
+        extraProducts = productExtraSanduichesList;
+    }
+    else if (selectedType === 'optionDrink') {
+        extraProducts = productExtraBebidasList;
+    }
+    else if (selectedType === 'optionComplement' && produtosBatatas.includes(selectedProduct)) {
+        extraProducts = productMolhosList;
+    }
+    else if (selectedType === 'optionComplement') {
+        extraProducts = ['Normal'];
+    } else {
+        extraProducts = [];
+    }
+
+
+    extraProducts.forEach(extra => {
+        productSelectExtra.innerHTML += `<option value="${extra}">${extra}</option>`;
+    });
+}
+
+
+document.addEventListener('DOMContentLoaded', () => {
     carregarProdutos();
+    carregarExtras();
+
+    document.getElementById('selectType').addEventListener('change', () => {
+        carregarProdutos();
+        carregarExtras();
+    });
+
+    document.getElementById('selectProduct').addEventListener('change', () => {
+        carregarExtras();
+    });
 });
 
-document.addEventListener('DOMContentLoaded'), function (){
-    function carregarExtras(){
-        const selectExtra = document.getElementById('selectExtra').value;
-        
 
-    }
-}
+
+
+
+
+
+
+

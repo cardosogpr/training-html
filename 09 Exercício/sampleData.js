@@ -54,3 +54,15 @@ const productExtraBebidasList = [
     "Sem Gelo",
     "Natural"
 ]
+
+const productMolhosList = [
+  "Agridoce",
+  "Barbecue",
+  "Caesar",
+  "Ketchup",
+  "Maionese c/ Alho",
+  "Molho para Batatas",
+  "Mostarda"
+]
+
+
