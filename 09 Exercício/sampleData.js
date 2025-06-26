@@ -32,7 +32,8 @@ const productNameSanduichesList = [
 const productExtraSanduichesList = [
     "Sem Molhos",
     "Sem Ketchup",
-    "Sem Pickle"
+    "Sem Pickle",
+    "Normal"
 ]
 
 const productNameAcompanhamentosList = [

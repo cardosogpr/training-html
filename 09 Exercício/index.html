@@ -37,45 +37,92 @@
             </section>
         </div>
     </nav>
-    <section id="addpedidos">
-        <form>
-            <div class="container">
-                <h1> Novo Pedido</h1>
-                <label for="inputClientName" class="form-label">Nome do Cliente : </label>
-                <input type="text" id="inputClientName" class="form-control" placeholder="Nome do Cliente">
-                <br>
-                <label for="inputType" class="form-label">Artigo :</label>
-                <br>
-                <select id="selectType" class="form-label">
+
+    <form>
+        <div class="container">
+            <h1> Novo Pedido</h1>
+            <label for="inputClientName" class="form-label">Nome do Cliente : </label>
+            <input type="text" id="inputClientName" class="form-control" placeholder="Nome do Cliente">
+            <br>
+            <label for="inputType" class="form-label">Artigo :</label>
+            <br>
+            <div class="d-flex gap-1">
+                <select id="selectType" class="form-select form-select-sm">
                     <option value="optionSandwich"> Sanduiche </option>
                     <option value="optionComplement"> Complemento </option>
                     <option value="optionDrink"> Bebida </option>
                 </select>
-
-                <select id="selectProduct" class="form-label">
+                <select id="selectProduct" class="form-select form-select-sm">
                 </select>
-
-                <br>
-                <br>
-                <label for="inputSpecialOrder" class="form-label">Pedido especial :</label>
-                <select id="selectExtra" class="form-label">
-
-                </select>
-
-
             </div>
-        </form>
+            <br>
+            <label for="inputSpecialOrder" class="form-label">Pedido especial :</label>
+            <select id="selectExtra" class="form-select form-select-sm">
+            </select>
+            <br>
+            <button class="form-control" type="button" id="addOrder" onclick="addPedido(event)"> Adicionar Pedido
+            </button>
 
+            <table class="table table-striped mt-3">
+                <thead>
+                    <tr>
+                        <th> # </th>
+                        <th>Artigos</th>
+                        <th>Extra</th>
+                    </tr>
+                </thead>
+                <tbody id="bodyAddPedido">
+                </tbody>
+            </table>
+            <br>
+            <button type="submit" class="form-control" id="finishOrder" onclick="finalizarPedido(event)"> Finalizar Pedido
+            </button>
+        </div>
+    </form>
+    <br>
+    <br>
+    <br>
+    <form>
+        <div class="container">
+            <h1> Serviço de Cozinha </h1>
+            <br>
+            <div id="buttonRow" class="d-flex gap-2">
+                <button class="form-control" type="button" id="remAll" onclick=""> Todos </button>
+                <button class="form-control" type="button" id="remExtra" onclick=""> Com Extra </button>
+                <button class="form-control" type="button" id="remNormal" onclick=""> Sem Extra </button>
+            </div>
+            <br>
+            <br>
+            <h2 id="labelNome">Nome do Cliente: </h2>
+            <h3 id="labelID">ID do Pedido: </h3>
+            <table class="table table-striped mt-3">
 
+                <thead>
+                    <tr>
+                        
 
+                        <th>Artigo</th>
+                        <th>Extra</th>
+                        <th>Nome</th>
+                    </tr>
+                </thead>
+                <tbody id="listarPedidos">
+                </tbody>
+            </table>
+            <br>
+            <!-- <button class="form-control" id="finishOrder"> Finalizar Pedido </button> -->
+        </div>
+    </form>
+    <br>
+    <br>
+    <br>
+    <form>
+        <div class="container">
 
-    </section>
-    <section id="removerpedidos">
-        b
-    </section>
-    <section id="listapedidos">
-        c
-    </section>
+            <h1> Lista Pedidos </h1>
+        </div>
+    </form>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO"
         crossorigin="anonymous"></script>
