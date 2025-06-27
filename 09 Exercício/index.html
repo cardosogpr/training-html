@@ -75,7 +75,8 @@
                 </tbody>
             </table>
             <br>
-            <button type="submit" class="form-control" id="finishOrder" onclick="finalizarPedido(event)"> Finalizar Pedido
+            <button type="submit" class="form-control" id="finishOrder" onclick="finalizarPedido(event)"> Finalizar
+                Pedido
             </button>
         </div>
     </form>
@@ -87,9 +88,12 @@
             <h1> Serviço de Cozinha </h1>
             <br>
             <div id="buttonRow" class="d-flex gap-2">
-                <button class="form-control" type="button" id="remAll" onclick=""> Todos </button>
-                <button class="form-control" type="button" id="remExtra" onclick=""> Com Extra </button>
-                <button class="form-control" type="button" id="remNormal" onclick=""> Sem Extra </button>
+                <button class="form-control" type="button" id="remAll" onclick="filtrarPedidos('todos')"> Todos
+                </button>
+                <button class="form-control" type="button" id="remExtra" onclick="filtrarPedidos('com-extra')"> Com Extra
+                </button>
+                <button class="form-control" type="button" id="remNormal" onclick="filtrarPedidos('sem-extra')"> Sem
+                    Extra </button>
             </div>
             <br>
             <br>
@@ -99,7 +103,7 @@
 
                 <thead>
                     <tr>
-                        
+
 
                         <th>Artigo</th>
                         <th>Extra</th>
