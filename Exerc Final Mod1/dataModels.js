@@ -52,7 +52,7 @@ getBooksFromGoogle('Javascript')
 function displaySingleBook(book) {
     const bookResultsDiv = document.getElementById('bookResults');
 
-    if (bookResultsDiv) {
+    if (!bookResultsDiv) {
         console.error("Erro: O elemento 'dislikeBooksContainer' não foi encontrado no DOM. Certifique-se de que está no seu HTML.");
         return;
     }
@@ -70,9 +70,8 @@ function displaySingleBook(book) {
                     <h5 class="card-title">${book.title}</h5>
                     <p class="card-text description-truncate">${book.description || 'Sem descrição.'}</p>
                     <p class="card-text"><small class="text-muted">Autor(es): ${Array.isArray(book.authors) ? book.authors.join(', ') : book.authors}</small></p>
-                    <a href="${book.previewLink || '#'}" target="_blank" class="btn btn-primary btn-sm mb-2">Ver Prévia</a>
                     <button type="button" class="btn btn-success btn-sm" onclick="favoriteBooks()">Gosto</button>
-                    <button type="button" class="btn btn-danger btn-sm" onclick="dislikeAndNextBook()">Não Gosto</button>
+                    <button type="button" class="btn btn-danger btn-sm" onclick="dislikeBooks()">Não Gosto</button>
                 </div>
             </div>
         </div>
@@ -86,10 +85,10 @@ async function handleSearch() {
     const searchTerm = inputSearch.value.trim();
 
     if (searchTerm) {
-        fechtedBooks = await getBooksFromGoogle(searchTerm);
-        currentBooksIndex = 0;
-        if (fetchedBooks.lenght > 0) {
-            displaySingleBook(fechtedBooks[currentBooksIndex]);
+        fetchedBooks = await getBooksFromGoogle(searchTerm);
+        currentBookIndex = 0;
+        if (fetchedBooks.length > 0) {
+            displaySingleBook(fetchedBooks[currentBookIndex]);
         } else {
             const bookResultsDiv = document.getElementById('bookResults');
             if (bookResultsDiv) {
@@ -112,20 +111,36 @@ function favoriteBooks() {
         return;
     }
 
+    const currentBook = fetchedBooks[currentBookIndex];
+
+    if (!currentBook) {
+        console.warn("Não há nenhum livro para favoritar no momento.");
+        return;
+    }
+
     const favBooks = `
     <div class="alert alert-success" role="alert">
-  <h4 class="alert-heading">Parabéns!</h4>
-  <p>Este livro foi adicionado a tua lista de livros favoritos!</p>
+  <h4 class="alert-heading">Parabéns!!!</h4>
+  <p>O livro <b>${currentBook.title}</b> foi adicionado a tua lista de livros favoritos!</p>
   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 `;
     favBooksContainer.innerHTML = favBooks;
 
+
     setTimeout(() => {
-        if (favBooksContainer.innerHTML) {
-            favBooksContainer.innerHTML = '';
+        const currentAlert = favBooksContainer.querySelector('.alert');
+        if (currentAlert) {
+            currentAlert.classList.remove('show');
+            currentAlert.classList.add('fade');
+            setTimeout(() => {
+                if (favBooksContainer.innerHTML) {
+                    favBooksContainer.innerHTML = '';
+                }
+            }, 350);
         }
-    }, 7000); // Remove após 5 segundos
+    }, 10000);
+    showNextBook();
 }
 
 //Função de Dislikes, incompleta
@@ -138,10 +153,12 @@ function dislikeBooks() {
         return;
     }
 
+    const currentBook = fetchedBooks[currentBookIndex];
+
     const unlikeBooks = `
     <div class="alert alert-danger" role="alert">
   <h4 class="alert-heading">Oh :(</h4>
-  <p>Este livro foi adicionado a tua lista de não gostos. </p>
+  <p>  O livro <b>${currentBook.title}</b> foi adicionado a lista de não favoritos. </p>
   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 `;
@@ -157,20 +174,24 @@ function dislikeBooks() {
                 if (dislikeBooksContainer.innerHTML) {
                     dislikeBooksContainer.innerHTML = '';
                 }
-            }, 150);
+            }, 350);
         }
-    }, 3000);
+    }, 10000);
+    showNextBook();
 }
-currentBookIndex++;
-if (currentBookIndex < fetchedBooks.lenght) {
-    displaySingleBook(fetchedBooks[currentBookIndex]);
-} else {
-    const bookResultsDiv = document.getElementById('bookResults');
-    if (bookResultsDiv) {
-        bookResultsDiv.innerHTML = '<p class="text-center">Todos os livros foram exibidos. Tente uma nova pesquisa!</p>';
+
+function showNextBook() {
+    currentBookIndex++;
+    if (currentBookIndex < fetchedBooks.length) { // CORRIGIDO: 'lenght' para 'length'
+        displaySingleBook(fetchedBooks[currentBookIndex]);
+    } else {
+        const bookResultsDiv = document.getElementById('bookResults');
+        if (bookResultsDiv) {
+            bookResultsDiv.innerHTML = '<p class="text-center">Todos os livros foram exibidos para esta pesquisa. Tente uma nova pesquisa!</p>';
+        }
+        currentBookIndex = 0; // Reinicia o índice
+        fetchedBooks = []; // Limpa os livros
     }
-    currentBookIndex = 0;
-    fetchedBooks = [];
 }
 
 
