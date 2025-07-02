@@ -19,6 +19,11 @@
         <div class="input group mb-3" style="max-width: 400px;">
             <input type="text" class="form-control" id="inputSearch" placeholder="Pesquisar por livros...">
             <button type="submit" class="btn btn-primary btn-small" onclick="handleSearch()"> Pesquisar </button>
+            <select id="search-type" class="form-control">
+                <option value="general" selected>General</option>
+                <option value="title">Por Título</option>
+                <option value="category">Por Categoria</option>
+            </select>
         </div>
         <div id="bookResults" class="row mt-4">
         </div>
