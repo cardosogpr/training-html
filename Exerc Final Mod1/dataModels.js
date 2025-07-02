@@ -98,6 +98,7 @@ function displaySingleBook(book) {
             </div>
         </div>
     `;
+
     bookResultsDiv.innerHTML = bookCard;
 }
 
@@ -145,7 +146,7 @@ function favoriteBooks() {
     const favBooks = ` 
     <div class="alert alert-success" role="alert">
   <h4 class="alert-heading">Parabéns!!!</h4>
-  <p>O livro <b>${currentBook.title}</b> foi adicionado a tua lista de livros favoritos!</p>
+  <p>Gostaste do livro <b>${currentBook.title}</b>! Mais livros deste género serão recomendados a partir de agora.</p>
   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 `;
@@ -220,12 +221,34 @@ function showNextBook() {
     }
 }
 
-//1 - criar função que mandará os livros favoritos para uma "Lista"
-//1.1 - talvez criar função que mandará os livros não favoritos para outra "Lista
-//2- talvez criar um "Escolha por mim", que mostre livros aleatórios (talvez palavras aleatórias)
-//3- melhorar o CSS
-//4- - local storage db
-//5- sistema de procurar por "temas de livros"
+//Mudar placehodlers
+
+const select = document.getElementById('search-type');
+
+select.addEventListener('change', function(event) {
+    const searchType = event.target.value;
+    
+    if (searchType === "general") { 
+        updatePlaceHolder("Pesquisar por livros...");
+    } else if (searchType === "category") { 
+        updatePlaceHolder("Pesquisar por categoria...");
+    } else if (searchType === "title") { 
+        updatePlaceHolder("Pesquisar por título...");
+    }
+    
+ });
+
+function updatePlaceHolder(text) {
+    const input = document.getElementById("inputSearch");
+    input.placeholder = text;
+}
+
+//1 - criar função que mandará os livros favoritos para uma "Lista" ( POR FAZER )
+//1.1 - talvez criar função que mandará os livros não favoritos para outra "Lista ( POR FAZER )
+//2- talvez criar um "Escolha por mim", que mostre livros aleatórios (talvez palavras aleatórias) ( POR FAZER )
+//3- melhorar o CSS ( POR FAZER )
+//4- - local storage db ( POR FAZER)
+//5- sistema de procurar por "temas de livros" ( FEITO )
 
 
 
