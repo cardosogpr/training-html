@@ -20,10 +20,12 @@
         </div>
         <div class="mb-4" style="width: 100%; display: flex; align-items: center; flex-direction: column;">
             <div class="input-group mb-3" style="max-width: 500px;">
-                <input type="text" class="form-control" id="inputSearch" placeholder="Pesquisar por livros...">
-                <button type="submit" class="btn btn-primary btn-search" onclick="handleSearch()"> 🔎 </button>
+                <input type="text" class="form-control btn-search p-3 rounded" id="inputSearch" placeholder="Pesquisar por livros...">
+                <button type="submit" class="btn btn-secondary btn-search  shadow p-3 rounded" onclick="handleSearch()">  
+                    <img src="search_btn.svg" alt="Botão de Pesquisar" style="width: 20px; height: 20px; vertical-align: middle;">
+                </button>
             </div>
-            <select id="search-type" class="form-select" style="width:  250px;">
+            <select id="search-type" class="form-select shadow rounded" style="width:  250px;">
                 <option value="general">General</option>
                 <option value="title">Por Título</option>
                 <option value="category">Por Categoria</option>
@@ -33,9 +35,10 @@
         <div id="alertContainer"></div>
         <div class="input group mb-3" style="max-width: 400px;"></div>
         <div id="favoriteBooksContainer" class="container mt-5">
-            <h2>Meus Livros Favoritos</h2>
+            <h2 style="display: flex; justify-content: center;">Meus Livros Favoritos</h2>
+            <br>
             <div id="favoriteBooksDisplay" class="row">
-                <p id="noFavoritesMessage">Nenhum livro favorito ainda. Clique em "Gosto" para adicionar!</p>
+                <p style="display: flex; justify-content: center;" id="noFavoritesMessage">Nenhum livro favorito ainda. Clique em "Gosto" para adicionar!</p>
             </div>
         </div>
     </div>

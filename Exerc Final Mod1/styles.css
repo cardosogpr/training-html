@@ -1,3 +1,13 @@
+        body {
+   background-image: url('fundo-biblioteka.jpg'); 
+   background-color: #f1eee7;
+   background-repeat: no-repeat;
+    background-attachment: fixed;
+   background-position: fixed fixed;
+   background-size: cover;
+
+}
+        
         .container {
             margin-top: 50px;
         }
@@ -24,6 +34,7 @@
 
         .card {
             overflow: hidden;
+            background-color: #f1eee7
         }
 
         .card[data-expanded="false"] {

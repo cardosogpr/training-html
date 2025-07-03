@@ -83,19 +83,24 @@ function displaySingleBook(book) {
     }
     //mostra o card depois no index.html
     const bookCard = ` 
-        <div class="col-md-8 offset-md-2 mb-4"> <div class="card h-100">
+        <div class="col-md-8 offset-md-2 mb-4"> <div class="card h-100 card h-100 shadow-lg p-3 mb-5 rounded">
                 <img src="${book.thumbnailUrl}" class="card-img-top" alt="${book.title}" style="max-height: 300px; object-fit: contain;">
-                <div class="card-body">
+                <div class="card-body ">
                     <h5 class="card-title">${book.title}</h5>
                    <p class="card-text">
                     <span class="description-short">${book.description ? book.description.substring(0, 150) : 'Sem descrição.'}</span>
                     <span class="description-full" style="display: none;">${book.description ? book.description : ''}</span>
-                    ${(book.description && book.description.length > 150) ? `<button type="button" class="btn btn-secondary btn-sm mt-2" onclick="expandDescription(this)">Saiba Mais</button>` : ''}
+                    ${(book.description && book.description.length > 150) ? `<button type="button" class="btn btn-secondary btn-sm mt-2" onclick="expandDescription(this)">Saiba Mais
+                        </button>` : ''}
                 </p>
                     <p class="card-text"><small class="text-muted">Autor(es): ${Array.isArray(book.authors) ? book.authors.join(', ') : book.authors}</small></p>
                     <p class="card-text"><small class="text-muted">Categoria(s): ${book.categories}</p>
-                    <button type="button" class="btn btn-success btn-sm" onclick="favoriteBooks()">Gosto</button>
-                    <button type="button" class="btn btn-danger btn-sm" onclick="dislikeBooks()">Não Gosto</button>
+                    <button type="button" class="btn btn-success btn-sm" onclick="favoriteBooks()">Gosto
+                     <img src="thumbs_up.svg" alt="Botão de Like" style="width: 20px; height: 20px; vertical-align: middle;">
+                    </button>
+                    <button type="button" class="btn btn-danger btn-sm" onclick="dislikeBooks()">Não Gosto
+                     <img src="thumbs_down.svg" alt="Botão de Não Gosto" style="width: 20px; height: 20px; vertical-align: middle;">
+                    </button>
                 </div>
             </div>
         </div>
@@ -155,7 +160,7 @@ function displayFavoriteBooks() {
     favoriteBooksList.forEach(book => {
         const bookCard = `
             <div class="col-md-4 mb-4">
-                <div class="card h-100">
+                <div class="card h-100 shadow-lg p-3 mb-5 rounded">
                     <img src="${book.thumbnailUrl}" class="card-img-top" alt="${book.title}" style="max-height: 200px; object-fit: contain;">
                     <div class="card-body">
                         <h5 class="card-title">${book.title}</h5>
@@ -165,7 +170,9 @@ function displayFavoriteBooks() {
                     ${(book.description && book.description.length > 150) ? `<button type="button" class="btn btn-secondary btn-sm mt-2" onclick="expandDescription(this)">Saiba Mais</button>` : ''}
                 </p>
                         <p class="card-text"><small class="text-muted">Autor(es): ${Array.isArray(book.authors) ? book.authors.join(', ') : book.authors}</small></p>
-                        <button type="button" class="btn btn-danger btn-sm" onclick="">Eliminar</button>
+                        <button type="button" class="btn btn-danger btn-sm" onclick="">Eliminar
+                         <img src="delete.svg" alt="Botão de Pesquisar" style="width: 20px; height: 20px; vertical-align: middle;">
+                        </button>
                     </div>
                 </div>
             </div>
