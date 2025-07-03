@@ -1,5 +1,6 @@
 let currentBookIndex = 0;
 let fetchedBooks = [];
+let favoriteBooksList = []; //livros favoritos
 let qString; //para procurar os Livros 
 
 
@@ -89,7 +90,11 @@ function displaySingleBook(book) {
                 <img src="${book.thumbnailUrl}" class="card-img-top" alt="${book.title}" style="max-height: 300px; object-fit: contain;">
                 <div class="card-body">
                     <h5 class="card-title">${book.title}</h5>
-                    <p class="card-text description-truncate">${book.description || 'Sem descrição.'}</p>
+                   <p class="card-text">
+                    <span class="description-short">${book.description ? book.description.substring(0, 150) : 'Sem descrição.'}</span>
+                    <span class="description-full" style="display: none;">${book.description ? book.description : ''}</span>
+                    ${(book.description && book.description.length > 150) ? `<button type="button" class="btn btn-secondary btn-sm mt-2" onclick="expandDescription(this)">Saiba Mais</button>` : ''}
+                </p>
                     <p class="card-text"><small class="text-muted">Autor(es): ${Array.isArray(book.authors) ? book.authors.join(', ') : book.authors}</small></p>
                     <p class="card-text"><small class="text-muted">Categoria(s): ${book.categories}</p>
                     <button type="button" class="btn btn-success btn-sm" onclick="favoriteBooks()">Gosto</button>
@@ -101,6 +106,7 @@ function displaySingleBook(book) {
 
     bookResultsDiv.innerHTML = bookCard;
 }
+
 
 //função para procurar
 
@@ -124,6 +130,87 @@ async function handleSearch() {
     }
 }
 
+//Mostrar livros favoritos
+
+function displayFavoriteBooks() {
+    const favoriteBooksDisplay = document.getElementById('favoriteBooksDisplay');
+    const noFavoritesMessage = document.getElementById('noFavoritesMessage');
+
+    if (!favoriteBooksDisplay) {
+        console.error("Erro: O elemento 'favoriteBooksDisplay' não foi encontrado no DOM.");
+        return;
+    }
+
+    // Limpa o conteúdo atual para evitar duplicatas ao re-exibir
+    favoriteBooksDisplay.innerHTML = '';
+
+    if (favoriteBooksList.length === 0) {
+        if (noFavoritesMessage) {
+            noFavoritesMessage.style.display = 'block'; // Mostra a mensagem se não houver favoritos
+        }
+        return;
+    } else {
+        if (noFavoritesMessage) {
+            noFavoritesMessage.style.display = 'none'; // Esconde a mensagem se houver favoritos
+        }
+    }
+
+    favoriteBooksList.forEach(book => {
+        const bookCard = `
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <img src="${book.thumbnailUrl}" class="card-img-top" alt="${book.title}" style="max-height: 200px; object-fit: contain;">
+                    <div class="card-body">
+                        <h5 class="card-title">${book.title}</h5>
+                    <p class="card-text">
+                    <span class="description-short">${book.description ? book.description.substring(0, 150) : 'Sem descrição.'}</span>
+                    <span class="description-full" style="display: none;">${book.description ? book.description : ''}</span>
+                    ${(book.description && book.description.length > 150) ? `<button type="button" class="btn btn-secondary btn-sm mt-2" onclick="expandDescription(this)">Saiba Mais</button>` : ''}
+                </p>
+                        <p class="card-text"><small class="text-muted">Autor(es): ${Array.isArray(book.authors) ? book.authors.join(', ') : book.authors}</small></p>
+                    </div>
+                </div>
+            </div>
+        `;
+        favoriteBooksDisplay.innerHTML += bookCard;
+    });
+}
+
+//Função mostrar descrição
+
+function expandDescription(button) {
+
+    const descriptionParagraph = button.closest('p.card-text');
+
+    if (!descriptionParagraph) {
+        console.error("Erro: Não foi possível encontrar a descrição sobre este livro (p.card-text)."); //Erro quando não há nenhuma descrição
+        return;
+    }
+
+    const shortDescriptionSpan = descriptionParagraph.querySelector('.description-short'); //mnostra ele com a descrição pequena
+    const fullDescriptionSpan = descriptionParagraph.querySelector('.description-full'); //mostra ele com a descrição completa
+
+    //um verificador (???)
+    if (!shortDescriptionSpan || !fullDescriptionSpan) {
+        console.error("Erro: Não foram encontradas as spans de descrição (description-short/description-full).");
+        return;
+    }
+
+    //Função que vai mostrar o botão "Saiba Mais"m quando tiver curto, e vai mostrar o "Mostrar Menos", quando tiver logo.
+    if (fullDescriptionSpan.style.display === 'none') {
+        // Se a descrição completa estiver oculta, mostre-a
+        shortDescriptionSpan.style.display = 'none'; // Oculta a parte curta
+        fullDescriptionSpan.style.display = 'inline'; // Exibe a parte completa 
+        button.textContent = 'Mostrar Menos';
+    } else {
+        // Se a descrição completa estiver visível, oculte-a
+        shortDescriptionSpan.style.display = 'inline'; // Exibe a parte curta
+        fullDescriptionSpan.style.display = 'none'; // Oculta a parte completa
+        button.textContent = 'Saiba Mais';
+    }
+}
+
+
 //Função de Livros Favoritos, incompleta
 
 function favoriteBooks() {
@@ -142,9 +229,21 @@ function favoriteBooks() {
         return;
     }
 
+    //Verificar se o livro já foi adicionado a lista para não existir duplicados, (configurar para alertas)
+
+    const isBookAlreadyFavorited = favoriteBooksList.some(book => book.id === currentBook.id);
+    if (!isBookAlreadyFavorited) {
+        favoriteBooksList.push(currentBook);
+        console.log("Livro adicionado aos favoritos:", currentBook.title);
+        console.log("Livros favoritos atuais:", favoriteBooksList); // Para depuração
+    } else {
+        console.log("Livro já está na lista de favoritos:", currentBook.title);
+    }
+
+
     //aparece um alerta dos livros favoritos que foi adicionado, (mudar para canto inferior direito, ou algo do género)
     const favBooks = ` 
-    <div class="alert alert-success" role="alert">
+    <div class="alert alert-success" role="alert" style="position: fixed; right: 0; bottom: 0; z-index: 5;">
   <h4 class="alert-heading">Parabéns!!!</h4>
   <p>Gostaste do livro <b>${currentBook.title}</b>! Mais livros deste género serão recomendados a partir de agora.</p>
   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -166,6 +265,7 @@ function favoriteBooks() {
         }
     }, 10000);
     showNextBook();
+    displayFavoriteBooks();
 }
 
 //Função de Dislikes,(mesma explicação que a de like)
@@ -181,7 +281,7 @@ function dislikeBooks() {
     const currentBook = fetchedBooks[currentBookIndex];
 
     const unlikeBooks = `
-    <div class="alert alert-danger" role="alert">
+    <div class="alert alert-danger" role="alert" style="position: fixed; right: 0; bottom: 0; z-index: 5;">
   <h4 class="alert-heading">Oh :(</h4>
   <p>  O livro <b>${currentBook.title}</b> foi adicionado a lista de não favoritos. </p>
   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -225,30 +325,28 @@ function showNextBook() {
 
 const select = document.getElementById('search-type');
 
-select.addEventListener('change', function(event) {
+select.addEventListener('change', function (event) {
     const searchType = event.target.value;
-    
-    if (searchType === "general") { 
+
+    if (searchType === "general") {
         updatePlaceHolder("Pesquisar por livros...");
-    } else if (searchType === "category") { 
+    } else if (searchType === "category") {
         updatePlaceHolder("Pesquisar por categoria...");
-    } else if (searchType === "title") { 
+    } else if (searchType === "title") {
         updatePlaceHolder("Pesquisar por título...");
     }
-    
- });
+
+});
 
 function updatePlaceHolder(text) {
     const input = document.getElementById("inputSearch");
     input.placeholder = text;
 }
 
-//1 - criar função que mandará os livros favoritos para uma "Lista" ( POR FAZER )
 //1.1 - talvez criar função que mandará os livros não favoritos para outra "Lista ( POR FAZER )
-//2- talvez criar um "Escolha por mim", que mostre livros aleatórios (talvez palavras aleatórias) ( POR FAZER )
 //3- melhorar o CSS ( POR FAZER )
 //4- - local storage db ( POR FAZER)
-//5- sistema de procurar por "temas de livros" ( FEITO )
+
 
 
 

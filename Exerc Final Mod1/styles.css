@@ -1,21 +1,31 @@
         .container {
             margin-top: 50px;
         }
-        
+
         .search-container {
             display: flex;
             gap: 10px;
             align-items: center;
             max-width: 600px;
         }
-        
+
         .input-group {
             flex: 1;
         }
-        
+
         .btn-search {
             height: 38px;
             display: flex;
             align-items: center;
             justify-content: center;
+        }
+
+        /* card expandir description */
+
+        .card {
+            overflow: hidden;
+        }
+
+        .card[data-expanded="false"] {
+            max-height: 100px;
         }

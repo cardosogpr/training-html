@@ -19,7 +19,7 @@
             <h1> Livros </h1>
         </div>
         <div class="mb-4" style="width: 100%; display: flex; align-items: center; flex-direction: column;">
-            <div class="input-group mb-3" style="max-width: 400px;">
+            <div class="input-group mb-3" style="max-width: 500px;">
                 <input type="text" class="form-control" id="inputSearch" placeholder="Pesquisar por livros...">
                 <button type="submit" class="btn btn-primary btn-search" onclick="handleSearch()"> 🔎 </button>
             </div>
@@ -32,6 +32,12 @@
         <div id="bookResults" class="row mt-4"></div>
         <div id="alertContainer"></div>
         <div class="input group mb-3" style="max-width: 400px;"></div>
+        <div id="favoriteBooksContainer" class="container mt-5">
+            <h2>Meus Livros Favoritos</h2>
+            <div id="favoriteBooksDisplay" class="row">
+                <p id="noFavoritesMessage">Nenhum livro favorito ainda. Clique em "Gosto" para adicionar!</p>
+            </div>
+        </div>
     </div>
     <!-- 
 Scripts -->
