@@ -15,6 +15,7 @@ async function getBooksFromGoogle(search) {
     if (searchType === "general") qString = search;
     else if (searchType === "category") qString = `subject:${search}`;
     else if (searchType === "title") qString = `intitle:${search}`;
+    else if (searchType === "authors") qString = `authors:${search}`;
 
     const url = `https://www.googleapis.com/books/v1/volumes?q=${qString}`
 
