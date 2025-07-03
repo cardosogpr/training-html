@@ -24,9 +24,6 @@ async function getBooksFromGoogle(search) {
             throw new Error(`HTTP error! status: ${response.status}`)
         }
         const dataFromGoogle = await response.json();
-
-
-
         //Aqui estão as informações dos livros, caso não tenha nenhum dado retorna 'Título Desconhecido, entre outros...'
 
         if (dataFromGoogle.items && dataFromGoogle.items.length > 0) {
@@ -108,7 +105,7 @@ function displaySingleBook(book) {
 }
 
 
-//função para procurar
+// função para procurar
 
 async function handleSearch() {
     const inputSearch = document.getElementById('inputSearch');
@@ -168,6 +165,7 @@ function displayFavoriteBooks() {
                     ${(book.description && book.description.length > 150) ? `<button type="button" class="btn btn-secondary btn-sm mt-2" onclick="expandDescription(this)">Saiba Mais</button>` : ''}
                 </p>
                         <p class="card-text"><small class="text-muted">Autor(es): ${Array.isArray(book.authors) ? book.authors.join(', ') : book.authors}</small></p>
+                        <button type="button" class="btn btn-danger btn-sm" onclick="">Eliminar</button>
                     </div>
                 </div>
             </div>
@@ -266,6 +264,8 @@ function favoriteBooks() {
     }, 10000);
     showNextBook();
     displayFavoriteBooks();
+
+    localStorage.setItem('favoriteBooks', JSON.stringify(favoriteBooksList));
 }
 
 //Função de Dislikes,(mesma explicação que a de like)
@@ -343,9 +343,8 @@ function updatePlaceHolder(text) {
     input.placeholder = text;
 }
 
-//1.1 - talvez criar função que mandará os livros não favoritos para outra "Lista ( POR FAZER )
 //3- melhorar o CSS ( POR FAZER )
-//4- - local storage db ( POR FAZER)
+
 
 
 
