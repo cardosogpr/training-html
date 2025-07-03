@@ -5,8 +5,26 @@
     background-attachment: fixed;
    background-position: fixed fixed;
    background-size: cover;
-
 }
+
+.my-soul-regular {
+  font-family: "My Soul", cursive;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 120px;
+  color: #405e9d;
+  
+}
+
+.michroma-regular {
+  font-family: "Michroma", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 35px;
+    color: #4c0013;
+}
+
+
         
         .container {
             margin-top: 50px;
