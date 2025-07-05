@@ -342,6 +342,8 @@ select.addEventListener('change', function (event) {
         updatePlaceHolder("Pesquisar por categoria...");
     } else if (searchType === "title") {
         updatePlaceHolder("Pesquisar por título...");
+    } else if (searchType === "authors") {
+        updatePlaceHolder("Pesquisar por autores...");
     }
 
 });
@@ -353,11 +355,21 @@ function updatePlaceHolder(text) {
 
 function deleteFavorites(bookId) {
 
-    favoriteBooksList = favoriteBooksList.filter(book => book.id !== bookId);
-     console.log("Livro removido dos favoritos. Livros favoritos atuais:", favoriteBooksList); //teste para ver se é apagado
+    const userConfirmed = confirm("Tem certeza que deseja remover este livro dos seus favoritos?"); //alerta para confirmar se é apagado
 
-    localStorage.setItem('favoriteBooks', JSON.stringify(favoriteBooksList));
-    displayFavoriteBooks();
+    if (userConfirmed) {
+        favoriteBooksList = favoriteBooksList.filter(book => book.id !== bookId)
+        console.log("Livro removido dos favoritos. Livros favoritos atuais:", favoriteBooksList);
+
+        localStorage.setItem('favoriteBooks', JSON.stringify(favoriteBooksList)); //atualiza no database.service 
+        displayFavoriteBooks(); //Mostra os livros
+    }
+    else {
+        console.log("Esta ação foi cancelada");
+    }
+
+
+
 }
 
 
