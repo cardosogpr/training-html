@@ -171,7 +171,7 @@ function displayFavoriteBooks() {
                     ${(book.description && book.description.length > 150) ? `<button type="button" class="btn btn-secondary btn-sm mt-2" onclick="expandDescription(this)">Saiba Mais</button>` : ''}
                 </p>
                         <p class="card-text"><small class="text-muted">Autor(es): ${Array.isArray(book.authors) ? book.authors.join(', ') : book.authors}</small></p>
-                        <button type="button" class="btn btn-danger btn-sm" onclick="">Eliminar
+                        <button type="button" class="btn btn-danger btn-sm" onclick="deleteFavorites('${book.id}')">Eliminar
                          <img src="delete.svg" alt="Botão de Pesquisar" style="width: 20px; height: 20px; vertical-align: middle;">
                         </button>
                     </div>
@@ -351,7 +351,14 @@ function updatePlaceHolder(text) {
     input.placeholder = text;
 }
 
-//3- melhorar o CSS ( POR FAZER )
+function deleteFavorites(bookId) {
+
+    favoriteBooksList = favoriteBooksList.filter(book => book.id !== bookId);
+     console.log("Livro removido dos favoritos. Livros favoritos atuais:", favoriteBooksList); //teste para ver se é apagado
+
+    localStorage.setItem('favoriteBooks', JSON.stringify(favoriteBooksList));
+    displayFavoriteBooks();
+}
 
 
 
